@@ -20,31 +20,15 @@
     die("Verbindung fehlgeschlagen: " . $db->connect_error);
   }
 
-  $sql= "SELECT * FROM Kunden";
+  $sql= "UPDATE Kunden SET nachname='ändern' WHERE id = 1";
 
-  $ergebnis = $db->query("SET NAMES 'utf8'");
-  $ergebnis = $db->query($sql);
+  $db->query("SET NAMES 'utf8'");
 
-
-  if($ergebnis->num_rows >0){
-
-    echo "<table><tr><th>ID</th><th>Vorname</th><th>Nachname</th><th>Erstellt am</th></tr>";
-
-    while($row = $ergebnis->fetch_assoc()){
-      echo "<tr>";
-      echo "<td>" . $row['id'] . "</td>";
-      echo "<td>" . $row['vorname'] . "</td>";
-      echo "<td>" . $row['nachname'] . "</td>";
-      echo "<td>" . $row['erstellt_am'] . "</td>";
-      echo "</tr>";
-    }
-
-    echo "</table>";
-
+  if($db->query($sql)){
+    echo "Update erfolgreich";
   }else{
-    echo "Leider nichts gefunden";
+    echo "Leider fehlgeschlagen";
   }
-
 
   $db->close();
 
